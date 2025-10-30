@@ -100,7 +100,11 @@ public class InMemoryAggregateRepositoryTests
         aggregate.ChangeName("Projected");
 
         string? observedName = null;
-        using var subscription = eventBus.Subscribe<NameChanged>(evt => observedName = evt.Name);
+        using var subscription = eventBus.Subscribe<NameChanged>(evt =>
+        {
+            observedName = evt.Name;
+            return Task.CompletedTask;
+        });
 
         await repo.SaveAsync(aggregate);
 

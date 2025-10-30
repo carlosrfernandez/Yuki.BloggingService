@@ -13,7 +13,7 @@ public class InMemoryReadRepository<T> : IReadRepository<T>
         return Task.CompletedTask;
     }
 
-    public Task<bool> TryGetAsync(Guid id, out T entity, CancellationToken cancellationToken= default)
+    public Task<bool> TryGetAsync(Guid id, out T entity, CancellationToken cancellationToken = default)
     {
         // ReSharper disable once NullableWarningSuppressionIsUsed
         return Task.FromResult(_store.TryGetValue(id, out entity!));

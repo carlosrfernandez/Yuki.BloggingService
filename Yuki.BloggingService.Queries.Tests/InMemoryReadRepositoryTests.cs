@@ -37,7 +37,7 @@ public class InMemoryReadRepositoryTests
         var id = Guid.NewGuid();
         await repository.Upsert(id, new TestEntity(id, "old"));
 
-        var updated = repository.TryUpdate(id, entity => entity with { Value = "new" });
+        var updated = await repository.TryUpdate(id, entity => entity with { Value = "new" });
 
         Assert.That(updated, Is.True);
         var result = await repository.TryGetAsync(id, out var stored);
@@ -79,10 +79,10 @@ public class InMemoryReadRepositoryTests
         var id = Guid.NewGuid();
         await repository.Upsert(id, new TestEntity(id, "initial"));
 
-        var task1 = Task.Run(() => repository.TryUpdate(id, entity => entity with { Value = "a" }));
-        var task2 = Task.Run(() => repository.TryUpdate(id, entity => entity with { Value = "b" }));
+        var task1 = Task.Run(async () => await repository.TryUpdate(id, entity => entity with { Value = "a" }));
+        var task2 = Task.Run(async () => await repository.TryUpdate(id, entity => entity with { Value = "b" }));
 
-        Task.WaitAll(task1, task2);
+        await Task.WhenAll(task1, task2);
 
         var result = await repository.TryGetAsync(id, out var stored);
         Assert.That(result, Is.True);

@@ -1,4 +1,8 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using NUnit.Framework;
+using Yuki.BloggingService.Domain.Common;
 using Yuki.BloggingService.Infrastructure.Messaging;
 
 namespace Yuki.BloggingService.Infrastructure.Tests.Messaging;
@@ -11,7 +15,11 @@ public class InMemoryEventBusTests
     {
         using var bus = new InMemoryEventBus();
         var received = new List<NameChanged>();
-        using var _ = bus.Subscribe<NameChanged>(received.Add);
+        using var _ = bus.Subscribe<NameChanged>(evt =>
+        {
+            received.Add(evt);
+            return Task.CompletedTask;
+        });
 
         var events = new[]
         {
@@ -29,7 +37,11 @@ public class InMemoryEventBusTests
     {
         using var bus = new InMemoryEventBus();
         var received = new List<NameChanged>();
-        var subscription = bus.Subscribe<NameChanged>(received.Add);
+        var subscription = bus.Subscribe<NameChanged>(evt =>
+        {
+            received.Add(evt);
+            return Task.CompletedTask;
+        });
         subscription.Dispose();
 
         await bus.PublishAsync([new NameChanged("Ignored")]);
@@ -44,10 +56,8 @@ public class InMemoryEventBusTests
         using var cts = new CancellationTokenSource();
         cts.Cancel();
 
-        Assert.That(
-            // ReSharper disable once AccessToDisposedClosure
-            () => bus.PublishAsync([new NameChanged("Cancelled")], cts.Token),
-            Throws.InstanceOf<OperationCanceledException>());
+        Assert.ThrowsAsync<OperationCanceledException>(async () =>
+            await bus.PublishAsync([new NameChanged("Cancelled")], cts.Token));
     }
 
     [Test]
@@ -58,12 +68,10 @@ public class InMemoryEventBusTests
 
         Assert.Multiple(() =>
         {
-            Assert.That(
-                () => bus.PublishAsync([]),
-                Throws.TypeOf<ObjectDisposedException>());
+        Assert.ThrowsAsync<ObjectDisposedException>(async () => await bus.PublishAsync(Array.Empty<IEvent>()));
 
             Assert.That(
-                () => bus.Subscribe<NameChanged>(_ => { }),
+                () => bus.Subscribe<NameChanged>(_ => Task.CompletedTask),
                 Throws.TypeOf<ObjectDisposedException>());
         });
     }

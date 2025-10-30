@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Threading.Tasks;
+using NUnit.Framework;
 using Yuki.BloggingService.Domain.Posts;
 using Yuki.BloggingService.Infrastructure.Messaging;
 using Yuki.Queries.Common;
@@ -34,7 +36,7 @@ public class BlogPostWithAuthorInfoRecordProjectionTests
         
         Assert.Multiple(() =>
         {
-            Assert.That(record!.Id, Is.EqualTo(blogPostId));
+            Assert.That(record.Id, Is.EqualTo(blogPostId));
             Assert.That(record.AuthorId, Is.EqualTo(authorId));
             Assert.That(record.Title, Is.EqualTo("Title"));
             Assert.That(record.Description, Is.EqualTo("Description"));
@@ -84,7 +86,7 @@ public class BlogPostWithAuthorInfoRecordProjectionTests
         Assert.That(result, Is.True);
         Assert.Multiple(() =>
         {
-            Assert.That(record!.PublishedAt, Is.EqualTo(publishedAt));
+            Assert.That(record.PublishedAt, Is.EqualTo(publishedAt));
             Assert.That(record.AuthorName, Is.EqualTo("Author"));
             Assert.That(record.AuthorSurname, Is.EqualTo("Surname"));
             Assert.That(record.AuthorId, Is.EqualTo(authorId));
