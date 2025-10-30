@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.BloggingService", "Yuki.BloggingService\Yuki.BloggingService.csproj", "{901ACE8B-6AE6-45D7-AB94-A324C959D20A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.BloggingService.Api", "Yuki.BloggingService.Api\Yuki.BloggingService.Api.csproj", "{901ACE8B-6AE6-45D7-AB94-A324C959D20A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6E297230-8F94-4BFC-A948-66F568F9082E}"
 	ProjectSection(SolutionItems) = preProject
@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B38EB8C4-D6E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F0775BFD-0AFC-4A6B-B84E-9E50B357DB13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.Domain.Tests", "Yuki.Domain.Tests\Yuki.Domain.Tests.csproj", "{0F650924-F495-4D19-BC27-FC5216BDC8F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.BloggingService.Domain.Tests", "Yuki.BloggingService.Domain.Tests\Yuki.BloggingService.Domain.Tests.csproj", "{0F650924-F495-4D19-BC27-FC5216BDC8F2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.BloggingService.Application", "Yuki.BloggingService.Application\Yuki.BloggingService.Application.csproj", "{6B61BAFA-D382-4C61-A4EB-55C5E1D6B821}"
 EndProject

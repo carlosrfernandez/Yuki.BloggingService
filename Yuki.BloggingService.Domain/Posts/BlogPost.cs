@@ -1,4 +1,5 @@
-﻿using Yuki.BloggingService.Domain.Common;
+﻿using Yuki.BloggingService.Domain.Authors;
+using Yuki.BloggingService.Domain.Common;
 
 namespace Yuki.BloggingService.Domain.Posts;
 
@@ -20,7 +21,7 @@ public class BlogPost : AggregateRoot
     /// <param name="content"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
-    public IEnumerable<IEvent> DraftBlogPost(Guid authorId, string title, string description, string content)
+    public void DraftBlogPost(Guid authorId, string title, string description, string content)
     {
         if (Id == Guid.Empty) throw new InvalidOperationException("Only new blog posts can be created.");
         Id = Guid.NewGuid();
@@ -29,15 +30,24 @@ public class BlogPost : AggregateRoot
         Description = description;
         Content = content;
 
-        yield return new BlogPostDraftCreatedEvent(Id, AuthorId, Title, Description, Content,
-            createdAt: DateTimeOffset.UtcNow);
+        RaiseEvent(new BlogPostDraftCreatedEvent(Id, AuthorId, Title, Description, Content,
+            createdAt: DateTimeOffset.UtcNow));
     }
     
-    public IEnumerable<IEvent> PublishBlogPost()
+    public void Publish(Author author)
     {
-        if (IsPublished) throw new InvalidOperationException("Blog post is already published.");
-
-        yield return new BlogPostPublishedEvent(Id, publishedAt: DateTimeOffset.UtcNow);
+        if (IsPublished)
+        {
+            // No op - idempotent
+            return;
+        }
+        
+        if (!author.IsAuthorizedToPublish)
+        {
+            throw new InvalidOperationException("Author is not authorized to publish blog posts.");
+        }
+        
+        RaiseEvent(new BlogPostPublishedEvent(Id, author.Id, author.Name, publishedAt: DateTimeOffset.UtcNow));
     }
 
     /// <summary>

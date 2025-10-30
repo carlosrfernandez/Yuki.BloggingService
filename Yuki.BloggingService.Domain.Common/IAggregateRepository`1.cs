@@ -6,6 +6,6 @@ namespace Yuki.BloggingService.Domain.Common;
 /// </summary>
 public interface IAggregateRepository
 {
-    Task SaveAsync<T>(T aggregate) where T : AggregateRoot, new();
-    Task<T> GetByIdAsync<T>(Guid id) where T : AggregateRoot, new();
+    Task SaveAsync<T>(T aggregate, CancellationToken cancellationToken = default) where T : AggregateRoot, new();
+    Task<T> GetByIdAsync<T>(Guid id, CancellationToken cancellationToken = default) where T : AggregateRoot, new();
 }

@@ -7,6 +7,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Yuki.BloggingService.Domain\Yuki.BloggingService.Domain.csproj" />
+      <ProjectReference Include="..\Yuki.BloggingService.Infrastructure\Yuki.BloggingService.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

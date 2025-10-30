@@ -9,7 +9,7 @@ public abstract class AggregateRoot
     
     public void ClearUncommittedEvents() => _uncommittedEvents.Clear();
     
-    protected void ApplyChange(IEvent @event)
+    protected void RaiseEvent(IEvent @event)
     {
         // Apply the event to the current aggregate state using dynamic dispatch
         // Note: This is for simplicity of the test. Dynamic dispatch does not have compile-time safety, and

@@ -14,7 +14,7 @@ public sealed class TestAggregate : AggregateRoot
 
     public void ChangeName(string name)
     {
-        ApplyChange(new NameChanged(name));
+        RaiseEvent(new NameChanged(name));
     }
 
     // this is what your base class's dynamic dispatch will call

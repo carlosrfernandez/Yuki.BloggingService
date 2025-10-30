@@ -3,6 +3,8 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <AssemblyName>Yuki.BloggingService.Api</AssemblyName>
+        <RootNamespace>Yuki.BloggingService.Api</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

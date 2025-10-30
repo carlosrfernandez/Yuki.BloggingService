@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Yuki.BloggingService.Infrastructure.Messaging;
 
 namespace Yuki.BloggingService.Infrastructure.Tests;
 
@@ -8,7 +9,8 @@ public class InMemoryAggregateRepositoryTests
     [Test]
     public async Task SaveAsync_Persists_Uncommitted_Events_And_Clears_Them()
     {
-        var repo = new InMemoryAggregateRepository();
+        using var eventBus = new InMemoryEventBus();
+        var repo = new InMemoryAggregateRepository(eventBus);
         var aggregate = new TestAggregate();
         aggregate.ChangeName("Carlos");
         await repo.SaveAsync(aggregate);
@@ -21,7 +23,8 @@ public class InMemoryAggregateRepositoryTests
     [Test]
     public async Task GetByIdAsync_Returns_Empty_Aggregate_When_Not_Found()
     {
-        var repo = new InMemoryAggregateRepository();
+        using var eventBus = new InMemoryEventBus();
+        var repo = new InMemoryAggregateRepository(eventBus);
         var missingId = Guid.NewGuid();
 
         var aggregate = await repo.GetByIdAsync<TestAggregate>(missingId);
@@ -33,7 +36,8 @@ public class InMemoryAggregateRepositoryTests
     [Test]
     public async Task SaveAsync_Appends_Events_For_Existing_Aggregate()
     {
-        var repo = new InMemoryAggregateRepository();
+        using var eventBus = new InMemoryEventBus();
+        var repo = new InMemoryAggregateRepository(eventBus);
         var aggregate = new TestAggregate();
         aggregate.ChangeName("First");
         await repo.SaveAsync(aggregate);
@@ -49,7 +53,8 @@ public class InMemoryAggregateRepositoryTests
     [Test]
     public async Task SaveAsync_Does_Nothing_When_No_Uncommitted_Events()
     {
-        var repo = new InMemoryAggregateRepository();
+        using var eventBus = new InMemoryEventBus();
+        var repo = new InMemoryAggregateRepository(eventBus);
         var aggregate = new TestAggregate();
 
         // act
@@ -65,7 +70,8 @@ public class InMemoryAggregateRepositoryTests
     [Repeat(1000000)]
     public async Task Concurrent_Saves_Do_Not_Lose_Events()
     {
-        var repo = new InMemoryAggregateRepository();
+        using var eventBus = new InMemoryEventBus();
+        var repo = new InMemoryAggregateRepository(eventBus);
         var aggregate = new TestAggregate();
 
         // we simulate multiple changes, one after another, but each saved "concurrently"
@@ -83,5 +89,21 @@ public class InMemoryAggregateRepositoryTests
         // We check that we have processed all events. 
         // This is just testing the in-memory repository's thread-safety... not the aggregate itself.
         Assert.That(reloaded.Version, Is.EqualTo(names.Length - 1));
+    }
+
+    [Test]
+    public async Task SaveAsync_Publishes_Events_To_Bus()
+    {
+        using var eventBus = new InMemoryEventBus();
+        var repo = new InMemoryAggregateRepository(eventBus);
+        var aggregate = new TestAggregate();
+        aggregate.ChangeName("Projected");
+
+        string? observedName = null;
+        using var subscription = eventBus.Subscribe<NameChanged>(evt => observedName = evt.Name);
+
+        await repo.SaveAsync(aggregate);
+
+        Assert.That(observedName, Is.EqualTo("Projected"));
     }
 }

@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Yuki.BloggingService.Domain.Common;
 
 namespace Yuki.BloggingService.Domain.Authors;
@@ -6,38 +7,40 @@ public class Author : AggregateRoot
 {
     public string Name { get; private set; } = string.Empty;
     public string Email { get; private set; } = string.Empty;
-    public bool IsAuthorizedToPublish { get; private set; } = false;
+    public bool IsAuthorizedToPublish { get; private set; }
 
-    public IEnumerable<IEvent> RegisterAuthor(string name, string email)
+    public void Register(string name, string email)
     {
         if (Id != Guid.Empty) throw new InvalidOperationException("Only new authors can be registered.");
-        Id = Guid.NewGuid();
-        Name = name;
-        Email = email;
 
-        yield return new AuthorRegisteredEvent(Id, Name, Email, registeredAt: DateTimeOffset.UtcNow);
+        RaiseEvent(new AuthorRegisteredEvent(
+            Id,
+            name,
+            email,
+            registeredAt: DateTimeOffset.UtcNow));
     }
 
-    public IEnumerable<IEvent> AuthorizeToPublishPost()
+    public void AuthorizeToPublishBlogPosts()
     {
         if (Id != Guid.Empty) throw new InvalidOperationException("Only new authors can be registered.");
         if (IsAuthorizedToPublish)
         {
             // This is idempotent. if we get multiple authorize requests we ignore them.
-            yield break;
+            return;
         }
-        
-        IsAuthorizedToPublish = true;
-        yield return new AuthorAuthorizedToPublishEvent(Id, authorizedAt: DateTimeOffset.UtcNow);
+
+        RaiseEvent(new AuthorAuthorizedToPublishEvent(Id, authorizedAt: DateTimeOffset.UtcNow));
     }
-    
+
+    [UsedImplicitly]
     private void Apply(AuthorRegisteredEvent @event)
     {
         Id = @event.Id;
         Name = @event.Name;
         Email = @event.Email;
     }
-    
+
+    [UsedImplicitly]
     private void Apply(AuthorAuthorizedToPublishEvent _)
     {
         IsAuthorizedToPublish = true;
