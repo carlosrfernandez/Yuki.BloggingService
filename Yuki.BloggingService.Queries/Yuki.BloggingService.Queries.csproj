@@ -2,4 +2,13 @@
   <PropertyGroup>
     <RootNamespace>Yuki.Queries</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yuki.BloggingService.Domain\Yuki.BloggingService.Domain.csproj" />
+    <ProjectReference Include="..\Yuki.BloggingService.Infrastructure\Yuki.BloggingService.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Reactive" Version="6.1.0" />
+  </ItemGroup>
 </Project>

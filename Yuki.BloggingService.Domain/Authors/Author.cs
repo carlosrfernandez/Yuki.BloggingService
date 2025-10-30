@@ -12,7 +12,10 @@ public class Author : AggregateRoot
     public void Register(string name, string surname, string email)
     {
         if (Id != Guid.Empty) throw new InvalidOperationException("Only new authors can be registered.");
-
+        if (string.IsNullOrEmpty(name)) throw new InvalidOperationException("Author name cannot be empty.");
+        if (string.IsNullOrEmpty(surname)) throw new InvalidOperationException("Author surname cannot be empty.");
+        if (string.IsNullOrEmpty(email)) throw new InvalidOperationException("Author email cannot be empty.");
+        
         RaiseEvent(new AuthorRegisteredEvent(
             Id,
             name,
