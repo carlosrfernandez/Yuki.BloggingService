@@ -8,7 +8,7 @@ internal static class TestHelpers
     internal static Author BuildRegisteredAuthor(Guid authorId)
     {
         var author = new Author();
-        var registered = new AuthorRegisteredEvent(authorId, "Alice", "alice@example.com", DateTimeOffset.UtcNow);
+        var registered = new AuthorRegisteredEvent(authorId, "Alice", "Smith", "alice@example.com", DateTimeOffset.UtcNow);
         author.LoadFromHistory([registered]);
         author.ClearUncommittedEvents();
         return author;

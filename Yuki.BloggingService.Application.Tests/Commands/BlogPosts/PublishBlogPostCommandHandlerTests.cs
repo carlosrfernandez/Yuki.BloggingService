@@ -36,6 +36,8 @@ public class PublishBlogPostCommandHandlerTests
         Assert.That(blogPost.IsPublished, Is.True);
         var @event = blogPost.GetUncommittedEvents().SingleOrDefault();
         Assert.That(@event, Is.TypeOf<BlogPostPublishedEvent>());
+        var published = (BlogPostPublishedEvent)@event!;
+        Assert.That(published.AuthorSurname, Is.EqualTo(author.Surname));
 
         repositoryMock.Verify(
             r => r.GetByIdAsync<Author>(authorId, It.IsAny<CancellationToken>()),

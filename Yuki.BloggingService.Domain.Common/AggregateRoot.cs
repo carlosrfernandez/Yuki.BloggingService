@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 namespace Yuki.BloggingService.Domain.Common;
 
 public abstract class AggregateRoot

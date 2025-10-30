@@ -13,7 +13,7 @@ public class RegisterNewAuthorCommandHandler(IAggregateRepository repository) : 
         ArgumentNullException.ThrowIfNull(command);
         var id = Guid.NewGuid();
         var author = await _repository.GetByIdAsync<Author>(id, cancellationToken).ConfigureAwait(false);
-        author.Register(command.Name, command.Email);
+        author.Register(command.Name, command.Surname, command.Email);
         await _repository.SaveAsync(author, cancellationToken).ConfigureAwait(false);
     }
 }

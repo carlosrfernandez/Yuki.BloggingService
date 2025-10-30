@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using Yuki.BloggingService.Domain.Authors;
-using Yuki.BloggingService.Domain.Common;
 using Yuki.BloggingService.Domain.Posts;
 
 namespace Yuki.BloggingService.Domain.Tests;
@@ -97,6 +96,7 @@ public class BlogPostTests
         var published = (BlogPostPublishedEvent)events[0];
         Assert.That(published.AuthorId, Is.EqualTo(author.Id));
         Assert.That(published.AuthorName, Is.EqualTo(author.Name));
+        Assert.That(published.AuthorSurname, Is.EqualTo(author.Surname));
         Assert.That(published.Id, Is.EqualTo(blogPost.Id));
         Assert.That(published.PublishedAt, Is.Not.EqualTo(default(DateTimeOffset)));
     }
@@ -132,9 +132,10 @@ public class BlogPostTests
     private static Author CreateRegisteredAuthor()
     {
         var author = new Author();
-        var registered = new AuthorRegisteredEvent(Guid.NewGuid(), "Author", "author@example.com",
+        var registered = new AuthorRegisteredEvent(Guid.NewGuid(), "Author", "Surname", "author@example.com",
             DateTimeOffset.UtcNow);
         author.LoadFromHistory([registered]);
+        author.ClearUncommittedEvents();
         return author;
     }
 

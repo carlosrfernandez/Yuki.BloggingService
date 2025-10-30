@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
 using Yuki.BloggingService.Application.Commands.Authors;
 using Yuki.BloggingService.Domain.Authors;
@@ -32,6 +28,7 @@ public class RegisterNewAuthorCommandHandlerTests
         var command = new RegisterNewAuthorCommand
         {
             Name = "Alice",
+            Surname = "Smith",
             Email = "alice@example.com"
         };
 
@@ -39,10 +36,13 @@ public class RegisterNewAuthorCommandHandlerTests
 
         Assert.That(savedAuthor, Is.Not.Null);
         Assert.That(savedAuthor!.Name, Is.EqualTo(command.Name));
+        Assert.That(savedAuthor.Surname, Is.EqualTo(command.Surname));
         Assert.That(savedAuthor.Email, Is.EqualTo(command.Email));
 
         var @event = savedAuthor.GetUncommittedEvents().SingleOrDefault();
         Assert.That(@event, Is.TypeOf<AuthorRegisteredEvent>());
+        var registered = (AuthorRegisteredEvent)@event!;
+        Assert.That(registered.Surname, Is.EqualTo(command.Surname));
 
         repositoryMock.Verify(
             r => r.GetByIdAsync<Author>(It.IsAny<Guid>(), It.IsAny<CancellationToken>()),

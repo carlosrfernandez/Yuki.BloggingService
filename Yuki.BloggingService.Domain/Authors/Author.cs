@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using Yuki.BloggingService.Domain.Common;
 namespace Yuki.BloggingService.Domain.Authors;
@@ -6,16 +5,18 @@ namespace Yuki.BloggingService.Domain.Authors;
 public class Author : AggregateRoot
 {
     public string Name { get; private set; } = string.Empty;
+    public string Surname { get; private set; } = string.Empty;
     public string Email { get; private set; } = string.Empty;
     public bool IsAuthorizedToPublish { get; private set; }
 
-    public void Register(string name, string email)
+    public void Register(string name, string surname, string email)
     {
         if (Id != Guid.Empty) throw new InvalidOperationException("Only new authors can be registered.");
 
         RaiseEvent(new AuthorRegisteredEvent(
             Id,
             name,
+            surname,
             email,
             registeredAt: DateTimeOffset.UtcNow));
     }
@@ -37,6 +38,7 @@ public class Author : AggregateRoot
     {
         Id = @event.Id;
         Name = @event.Name;
+        Surname = @event.Surname;
         Email = @event.Email;
     }
 

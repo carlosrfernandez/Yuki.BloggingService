@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Moq;
 using NUnit.Framework;
 using Yuki.BloggingService.Application.Commands.BlogPosts;
@@ -73,6 +70,8 @@ public class DraftBlogPostCommandHandlerTests
             await handler.HandleAsync(command, CancellationToken.None));
         
         Assert.That(ex, Is.Not.Null);
+        // This is to satisfy static analysis tools. Not sure why the line above is not removing this warning.
+        Debug.Assert(ex != null, nameof(ex) + " != null");
         Assert.That(ex.Message, Is.Not.Null);
         
         Assert.That(ex.Message, Is.EqualTo("Title cannot be empty."));

@@ -33,6 +33,7 @@ public class AuthorizeAuthorToPublishCommandHandlerTests
 
         Assert.That(savedAuthor, Is.Not.Null);
         Assert.That(savedAuthor!.IsAuthorizedToPublish, Is.True);
+        Assert.That(savedAuthor.Surname, Is.EqualTo(author.Surname));
 
         var @event = savedAuthor.GetUncommittedEvents().SingleOrDefault();
         Assert.That(@event, Is.TypeOf<AuthorAuthorizedToPublishEvent>());

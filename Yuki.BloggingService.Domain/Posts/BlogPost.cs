@@ -46,7 +46,7 @@ public class BlogPost : AggregateRoot
             throw new InvalidOperationException("Author is not authorized to publish blog posts.");
         }
         
-        RaiseEvent(new BlogPostPublishedEvent(Id, author.Id, author.Name, publishedAt: DateTimeOffset.UtcNow));
+        RaiseEvent(new BlogPostPublishedEvent(Id, author.Id, author.Name, author.Surname, publishedAt: DateTimeOffset.UtcNow));
     }
 
     /// <summary>

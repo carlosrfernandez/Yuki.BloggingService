@@ -11,9 +11,10 @@ public class AuthorTests
     {
         var author = new Author();
 
-        author.Register("Carlos", "carlos@example.com");
+        author.Register("Carlos", "Ruiz", "carlos@example.com");
 
         Assert.That(author.Name, Is.EqualTo("Carlos"));
+        Assert.That(author.Surname, Is.EqualTo("Ruiz"));
         Assert.That(author.Email, Is.EqualTo("carlos@example.com"));
 
         var events = author.GetUncommittedEvents().ToList();
@@ -22,6 +23,7 @@ public class AuthorTests
 
         var registered = (AuthorRegisteredEvent)events[0];
         Assert.That(registered.Name, Is.EqualTo("Carlos"));
+        Assert.That(registered.Surname, Is.EqualTo("Ruiz"));
         Assert.That(registered.Email, Is.EqualTo("carlos@example.com"));
         Assert.That(registered.RegisteredAt, Is.Not.EqualTo(default(DateTimeOffset)));
     }
@@ -31,7 +33,7 @@ public class AuthorTests
     {
         var author = CreateRegisteredAuthor();
 
-        Assert.That(() => author.Register("Other", "other@example.com"),
+        Assert.That(() => author.Register("Other", "Surname", "other@example.com"),
             Throws.InstanceOf<InvalidOperationException>());
     }
 
@@ -63,9 +65,10 @@ public class AuthorTests
     private static Author CreateRegisteredAuthor()
     {
         var author = new Author();
-        var registered = new AuthorRegisteredEvent(Guid.NewGuid(), "Existing", "existing@example.com",
+        var registered = new AuthorRegisteredEvent(Guid.NewGuid(), "Existing", "Surname", "existing@example.com",
             DateTimeOffset.UtcNow);
         author.LoadFromHistory([registered]);
+        author.ClearUncommittedEvents();
         return author;
     }
 }
