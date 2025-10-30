@@ -1,6 +1,6 @@
 ﻿namespace Yuki.Queries.Projections.Summary;
 
-public sealed record BlogPostDraftSummary(
+public sealed record BlogPostDraftSummaryRecord(
     Guid Id,
     Guid AuthorId,
     string Title,

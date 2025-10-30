@@ -21,11 +21,6 @@ public sealed class BlogPostWithAuthorInfoRecordProjection(
         _subscriptions.Add(_eventBus.Subscribe<BlogPostPublishedEvent>(Handle));
     }
 
-    public Task<bool> TryGetRecord(Guid blogPostId, out BlogPostWithAuthorInformationRecord record)
-    {
-        return _repository.TryGetAsync(blogPostId, out record);
-    }
-
     public override void Dispose()
     {
         _subscriptions?.Dispose();

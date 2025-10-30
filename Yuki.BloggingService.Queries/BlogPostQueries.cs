@@ -11,11 +11,11 @@ namespace Yuki.Queries;
 /// This class is just to demonstrate how to implement queries using the read repositories.
 /// </summary>
 public class BlogPostQueries(
-    IReadRepository<BlogPostDraftSummary> blogPostRepository,
+    IReadRepository<BlogPostDraftSummaryRecord> blogPostRepository,
     IReadRepository<BlogPostWithAuthorInformationRecord> blogPostWithAuthorRepository)
     : IBlogPostQueries
 {
-    public async Task<BlogPostDraftSummary?> GetBlogPostInformation(Guid blogPostId,
+    public async Task<BlogPostDraftSummaryRecord?> GetBlogPostInformation(Guid blogPostId,
         CancellationToken cancellationToken = default)
     {
         var query = await blogPostRepository.TryGetAsync(blogPostId, out var blogPostSummary, cancellationToken);

@@ -15,7 +15,7 @@ public class BlogPostSummaryProjectionTests
     public async Task Start_WhenDraftEventArrives_ShouldStoreSummary()
     {
         using var eventBus = new InMemoryEventBus();
-        var repository = new InMemoryReadRepository<BlogPostDraftSummary>();
+        var repository = new InMemoryReadRepository<BlogPostDraftSummaryRecord>();
         var projection = new BlogPostSummaryProjection(eventBus, repository);
         projection.Start();
 
@@ -53,7 +53,7 @@ public class BlogPostSummaryProjectionTests
     public async Task PublishEvent_ShouldUpdatePublishedAt()
     {
         using var eventBus = new InMemoryEventBus();
-        var repository = new InMemoryReadRepository<BlogPostDraftSummary>();
+        var repository = new InMemoryReadRepository<BlogPostDraftSummaryRecord>();
         var projection = new BlogPostSummaryProjection(eventBus, repository);
         projection.Start();
 

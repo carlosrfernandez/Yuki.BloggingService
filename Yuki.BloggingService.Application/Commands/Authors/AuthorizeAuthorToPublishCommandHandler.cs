@@ -1,9 +1,10 @@
 using Yuki.BloggingService.Domain.Authors;
 using Yuki.BloggingService.Domain.Common;
+using Yuki.BloggingService.Infrastructure;
 
 namespace Yuki.BloggingService.Application.Commands.Authors;
 
-public class AuthorizeAuthorToPublishCommandHandler(IAggregateRepository authorRepository)
+public class AuthorizeAuthorToPublishCommandHandler(IAggregateRepository authorRepository) : ICommandHandler<AuthorizeAuthorToPublishCommand>
 {
     private readonly IAggregateRepository _authorRepository =
         authorRepository ?? throw new ArgumentNullException(nameof(authorRepository));

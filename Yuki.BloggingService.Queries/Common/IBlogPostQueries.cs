@@ -5,7 +5,7 @@ namespace Yuki.Queries.Common;
 
 public interface IBlogPostQueries
 {
-    Task<BlogPostDraftSummary?> GetBlogPostInformation(Guid blogPostId,
+    Task<BlogPostDraftSummaryRecord?> GetBlogPostInformation(Guid blogPostId,
         CancellationToken cancellationToken = default);
 
     Task<BlogPostWithAuthorInformationRecord?> GetBlogPostInformationWithAuthorInfo(Guid blogPostId,

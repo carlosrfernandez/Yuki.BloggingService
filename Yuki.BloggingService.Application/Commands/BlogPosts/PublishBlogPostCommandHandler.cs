@@ -13,5 +13,6 @@ public class PublishBlogPostCommandHandler(IAggregateRepository blogPostReposito
         var author = await blogPostRepository.GetByIdAsync<Author>(command.AuthorId, cancellationToken);
         var blogPost = await blogPostRepository.GetByIdAsync<BlogPost>(command.BlogPostId, cancellationToken);
         blogPost.Publish(author);
+        await blogPostRepository.SaveAsync(blogPost, cancellationToken);
     }
 }

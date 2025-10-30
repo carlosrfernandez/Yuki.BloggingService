@@ -8,10 +8,10 @@ namespace Yuki.Queries.Projections.Summary;
 // This has a simple storage. And should be treated as a persisted database or similar.
 public sealed class BlogPostSummaryProjection(
     IEventBus eventBus,
-    IReadRepository<BlogPostDraftSummary> repository) : ProjectionsBase
+    IReadRepository<BlogPostDraftSummaryRecord> repository) : ProjectionsBase
 {
     private readonly IEventBus _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-    private readonly IReadRepository<BlogPostDraftSummary> _repository =
+    private readonly IReadRepository<BlogPostDraftSummaryRecord> _repository =
         repository ?? throw new ArgumentNullException(nameof(repository));
     private CompositeDisposable? _subscriptions;
 
@@ -22,12 +22,9 @@ public sealed class BlogPostSummaryProjection(
         _subscriptions.Add(_eventBus.Subscribe<BlogPostPublishedEvent>(Handle));
     }
 
-    public Task<bool> TryGetDraft(Guid blogPostId, out BlogPostDraftSummary summary) =>
-        _repository.TryGetAsync(blogPostId, out summary);
-
     private async Task Handle(BlogPostDraftCreatedEvent @event)
     {
-        var summary = new BlogPostDraftSummary(
+        var summary = new BlogPostDraftSummaryRecord(
             @event.Id,
             @event.AuthorId,
             @event.Title,

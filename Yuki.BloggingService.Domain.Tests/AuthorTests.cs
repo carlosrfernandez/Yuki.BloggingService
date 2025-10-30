@@ -49,7 +49,43 @@ public class AuthorTests
         Assert.That(events, Has.Count.EqualTo(1));
         Assert.That(events[0], Is.TypeOf<AuthorAuthorizedToPublishEvent>());
     }
+    
+    [Test]
+    public void AuthorizeToPublishBlogPosts_WhenUnregistered_ShouldThrow()
+    {
+        var author = new Author();
 
+        Assert.That(() => author.AuthorizeToPublishBlogPosts(),
+            Throws.InstanceOf<InvalidOperationException>());
+    }
+
+    [Test]
+    public void Register_WhenNameIsEmpty_ShouldThrow()
+    {
+        var author = new Author();
+
+        Assert.That(() => author.Register("", "Surname", "email@example.com"),
+            Throws.InstanceOf<InvalidOperationException>());
+    }
+
+    [Test]
+    public void Register_WhenSurnameIsEmpty_ShouldThrow()
+    {
+        var author = new Author();
+
+        Assert.That(() => author.Register("Name", "", "email@example.com"),
+            Throws.InstanceOf<InvalidOperationException>());
+    }
+    
+    [Test]
+    public void Register_WhenEmailIsEmpty_ShouldThrow()
+    {
+        var author = new Author();
+
+        Assert.That(() => author.Register("Name", "Surname", ""),
+            Throws.InstanceOf<InvalidOperationException>());
+    }
+    
     [Test]
     public void AuthorizeToPublishBlogPosts_WhenAlreadyAuthorized_ShouldNotRaiseAdditionalEvents()
     {
