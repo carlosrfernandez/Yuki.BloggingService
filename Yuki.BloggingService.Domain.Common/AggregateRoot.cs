@@ -4,7 +4,7 @@ namespace Yuki.BloggingService.Domain.Common;
 
 public abstract class AggregateRoot
 {
-    private readonly List<IEvent> _uncommittedEvents = new();
+    private readonly List<IEvent> _uncommittedEvents = [];
     public IReadOnlyCollection<IEvent> GetUncommittedEvents() => _uncommittedEvents.AsReadOnly();
     public Guid Id { get; protected set; }
     public int Version { get; protected set; } = -1;

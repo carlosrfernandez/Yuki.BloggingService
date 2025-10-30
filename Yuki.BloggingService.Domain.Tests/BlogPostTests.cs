@@ -134,7 +134,7 @@ public class BlogPostTests
         var author = new Author();
         var registered = new AuthorRegisteredEvent(Guid.NewGuid(), "Author", "author@example.com",
             DateTimeOffset.UtcNow);
-        author.LoadFromHistory(new IEvent[] { registered });
+        author.LoadFromHistory([registered]);
         return author;
     }
 
@@ -142,7 +142,7 @@ public class BlogPostTests
     {
         var author = CreateRegisteredAuthor();
         var authorized = new AuthorAuthorizedToPublishEvent(author.Id, DateTimeOffset.UtcNow);
-        author.LoadFromHistory(new IEvent[] { authorized });
+        author.LoadFromHistory([authorized]);
         return author;
     }
 }
