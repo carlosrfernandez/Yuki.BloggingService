@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+      <AssemblyName>Yuki.BloggingService.Application</AssemblyName>
+      <RootNamespace>Yuki.BloggingService.Application</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Yuki.BloggingService.Domain\Yuki.BloggingService.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

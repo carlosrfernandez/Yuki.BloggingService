@@ -1,0 +1,77 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.BloggingService", "Yuki.BloggingService\Yuki.BloggingService.csproj", "{901ACE8B-6AE6-45D7-AB94-A324C959D20A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6E297230-8F94-4BFC-A948-66F568F9082E}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.BloggingService.Domain.Common", "Yuki.BloggingService.Domain.Common\Yuki.BloggingService.Domain.Common.csproj", "{B30A379D-E9C5-4BA1-A769-B29A00C6CBBC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B38EB8C4-D6E0-47A1-89A7-3CFC77BAD874}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F0775BFD-0AFC-4A6B-B84E-9E50B357DB13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.Domain.Tests", "Yuki.Domain.Tests\Yuki.Domain.Tests.csproj", "{0F650924-F495-4D19-BC27-FC5216BDC8F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.BloggingService.Application", "Yuki.BloggingService.Application\Yuki.BloggingService.Application.csproj", "{6B61BAFA-D382-4C61-A4EB-55C5E1D6B821}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.BloggingService.Queries", "Yuki.BloggingService.Queries\Yuki.BloggingService.Queries.csproj", "{ABC669C8-3A20-46E8-B9ED-B15DDE21EC7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.BloggingService.Infrastructure", "Yuki.BloggingService.Infrastructure\Yuki.BloggingService.Infrastructure.csproj", "{619D2BE2-E221-4E9F-8F5A-791FF1D1F039}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.BloggingService.Domain", "Yuki.BloggingService.Domain\Yuki.BloggingService.Domain.csproj", "{82F42708-D1CD-4D31-AC76-8D89982FC718}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.BloggingService.Infrastructure.Tests", "Yuki.BloggingService.Infrastructure.Tests\Yuki.BloggingService.Infrastructure.Tests.csproj", "{FBFF0928-80C7-46A9-A6A9-D662FD532CE6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{901ACE8B-6AE6-45D7-AB94-A324C959D20A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{901ACE8B-6AE6-45D7-AB94-A324C959D20A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{901ACE8B-6AE6-45D7-AB94-A324C959D20A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{901ACE8B-6AE6-45D7-AB94-A324C959D20A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B30A379D-E9C5-4BA1-A769-B29A00C6CBBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B30A379D-E9C5-4BA1-A769-B29A00C6CBBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B30A379D-E9C5-4BA1-A769-B29A00C6CBBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B30A379D-E9C5-4BA1-A769-B29A00C6CBBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F650924-F495-4D19-BC27-FC5216BDC8F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F650924-F495-4D19-BC27-FC5216BDC8F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F650924-F495-4D19-BC27-FC5216BDC8F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F650924-F495-4D19-BC27-FC5216BDC8F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B61BAFA-D382-4C61-A4EB-55C5E1D6B821}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B61BAFA-D382-4C61-A4EB-55C5E1D6B821}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B61BAFA-D382-4C61-A4EB-55C5E1D6B821}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B61BAFA-D382-4C61-A4EB-55C5E1D6B821}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABC669C8-3A20-46E8-B9ED-B15DDE21EC7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABC669C8-3A20-46E8-B9ED-B15DDE21EC7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABC669C8-3A20-46E8-B9ED-B15DDE21EC7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABC669C8-3A20-46E8-B9ED-B15DDE21EC7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{619D2BE2-E221-4E9F-8F5A-791FF1D1F039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{619D2BE2-E221-4E9F-8F5A-791FF1D1F039}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{619D2BE2-E221-4E9F-8F5A-791FF1D1F039}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{619D2BE2-E221-4E9F-8F5A-791FF1D1F039}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82F42708-D1CD-4D31-AC76-8D89982FC718}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82F42708-D1CD-4D31-AC76-8D89982FC718}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82F42708-D1CD-4D31-AC76-8D89982FC718}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82F42708-D1CD-4D31-AC76-8D89982FC718}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBFF0928-80C7-46A9-A6A9-D662FD532CE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBFF0928-80C7-46A9-A6A9-D662FD532CE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBFF0928-80C7-46A9-A6A9-D662FD532CE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBFF0928-80C7-46A9-A6A9-D662FD532CE6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B30A379D-E9C5-4BA1-A769-B29A00C6CBBC} = {B38EB8C4-D6E0-47A1-89A7-3CFC77BAD874}
+		{901ACE8B-6AE6-45D7-AB94-A324C959D20A} = {B38EB8C4-D6E0-47A1-89A7-3CFC77BAD874}
+		{0F650924-F495-4D19-BC27-FC5216BDC8F2} = {F0775BFD-0AFC-4A6B-B84E-9E50B357DB13}
+		{6B61BAFA-D382-4C61-A4EB-55C5E1D6B821} = {B38EB8C4-D6E0-47A1-89A7-3CFC77BAD874}
+		{ABC669C8-3A20-46E8-B9ED-B15DDE21EC7F} = {B38EB8C4-D6E0-47A1-89A7-3CFC77BAD874}
+		{619D2BE2-E221-4E9F-8F5A-791FF1D1F039} = {B38EB8C4-D6E0-47A1-89A7-3CFC77BAD874}
+		{82F42708-D1CD-4D31-AC76-8D89982FC718} = {B38EB8C4-D6E0-47A1-89A7-3CFC77BAD874}
+		{FBFF0928-80C7-46A9-A6A9-D662FD532CE6} = {F0775BFD-0AFC-4A6B-B84E-9E50B357DB13}
+	EndGlobalSection
+EndGlobal

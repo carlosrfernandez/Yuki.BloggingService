@@ -1,0 +1,7 @@
+﻿services:
+  yuki.bloggingservice:
+    image: yuki.bloggingservice
+    build:
+      context: .
+      dockerfile: Yuki.BloggingService/Dockerfile
+

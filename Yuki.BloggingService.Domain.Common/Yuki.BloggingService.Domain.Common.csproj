@@ -1,0 +1,6 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Yuki.BloggingService.Domain.Common</AssemblyName>
+    <RootNamespace>Yuki.BloggingService.Domain.Common</RootNamespace>
+  </PropertyGroup>
+</Project>
