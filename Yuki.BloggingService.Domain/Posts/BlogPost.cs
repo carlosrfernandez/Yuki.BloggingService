@@ -1,4 +1,4 @@
-﻿using Yuki.Domain.Common;
+﻿using Yuki.BloggingService.Domain.Common;
 
 namespace Yuki.BloggingService.Domain.Posts;
 

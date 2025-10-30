@@ -4,4 +4,8 @@
       <ProjectReference Include="..\Yuki.BloggingService.Domain.Common\Yuki.BloggingService.Domain.Common.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Messaging\" />
+    </ItemGroup>
+
 </Project>

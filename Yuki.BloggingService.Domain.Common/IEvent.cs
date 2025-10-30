@@ -1,3 +1,3 @@
-namespace Yuki.Domain.Common;
+namespace Yuki.BloggingService.Domain.Common;
 
 public interface IEvent;

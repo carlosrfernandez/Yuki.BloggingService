@@ -1,4 +1,4 @@
-namespace Yuki.Domain.Common;
+namespace Yuki.BloggingService.Domain.Common;
 
 public abstract class AggregateRoot
 {

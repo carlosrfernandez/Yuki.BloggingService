@@ -1,4 +1,4 @@
-namespace Yuki.Domain.Common;
+namespace Yuki.BloggingService.Domain.Common;
 
 /// <summary>
 /// This is a very simple interface of an aggregate repository. In a real world case, we would add additional checks

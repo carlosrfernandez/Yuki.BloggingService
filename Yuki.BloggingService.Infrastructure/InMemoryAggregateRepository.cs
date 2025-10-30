@@ -1,5 +1,5 @@
 ﻿using System.Collections.Concurrent;
-using Yuki.Domain.Common;
+using Yuki.BloggingService.Domain.Common;
 
 namespace Yuki.BloggingService.Infrastructure;
 
