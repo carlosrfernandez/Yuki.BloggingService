@@ -12,8 +12,9 @@ public sealed class DraftBlogPostCommandHandler(IAggregateRepository repository)
     {
         ArgumentNullException.ThrowIfNull(command);
 
-        var blogPost = await _repository.GetByIdAsync<BlogPost>(command.BlogPostId, cancellationToken).ConfigureAwait(false);
-        blogPost.DraftBlogPost(command.AuthorId, command.Title, command.Description, command.Content);
+        var id = Guid.NewGuid();
+        var blogPost = await _repository.GetByIdAsync<BlogPost>(id, cancellationToken).ConfigureAwait(false);
+        blogPost.DraftBlogPost(id, command.AuthorId, command.Title, command.Description, command.Content);
         
         await _repository.SaveAsync(blogPost, cancellationToken).ConfigureAwait(false);
     }

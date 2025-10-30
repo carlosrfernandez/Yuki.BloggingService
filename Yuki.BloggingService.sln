@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.BloggingService.Domain
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.BloggingService.Infrastructure.Tests", "Yuki.BloggingService.Infrastructure.Tests\Yuki.BloggingService.Infrastructure.Tests.csproj", "{FBFF0928-80C7-46A9-A6A9-D662FD532CE6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.BloggingService.Application.Tests", "Yuki.BloggingService.Application.Tests\Yuki.BloggingService.Application.Tests.csproj", "{79042193-9859-4A01-9F69-C8A1E3C95D9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{FBFF0928-80C7-46A9-A6A9-D662FD532CE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBFF0928-80C7-46A9-A6A9-D662FD532CE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBFF0928-80C7-46A9-A6A9-D662FD532CE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79042193-9859-4A01-9F69-C8A1E3C95D9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79042193-9859-4A01-9F69-C8A1E3C95D9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79042193-9859-4A01-9F69-C8A1E3C95D9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79042193-9859-4A01-9F69-C8A1E3C95D9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B30A379D-E9C5-4BA1-A769-B29A00C6CBBC} = {B38EB8C4-D6E0-47A1-89A7-3CFC77BAD874}
@@ -73,5 +79,6 @@ Global
 		{619D2BE2-E221-4E9F-8F5A-791FF1D1F039} = {B38EB8C4-D6E0-47A1-89A7-3CFC77BAD874}
 		{82F42708-D1CD-4D31-AC76-8D89982FC718} = {B38EB8C4-D6E0-47A1-89A7-3CFC77BAD874}
 		{FBFF0928-80C7-46A9-A6A9-D662FD532CE6} = {F0775BFD-0AFC-4A6B-B84E-9E50B357DB13}
+		{79042193-9859-4A01-9F69-C8A1E3C95D9D} = {F0775BFD-0AFC-4A6B-B84E-9E50B357DB13}
 	EndGlobalSection
 EndGlobal

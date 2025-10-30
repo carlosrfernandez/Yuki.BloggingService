@@ -1,6 +1,6 @@
+using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using Yuki.BloggingService.Domain.Common;
-
 namespace Yuki.BloggingService.Domain.Authors;
 
 public class Author : AggregateRoot
@@ -22,7 +22,7 @@ public class Author : AggregateRoot
 
     public void AuthorizeToPublishBlogPosts()
     {
-        if (Id != Guid.Empty) throw new InvalidOperationException("Only new authors can be registered.");
+        if (Id == Guid.Empty) throw new InvalidOperationException("Unregistered authors cannot be authorized.");
         if (IsAuthorizedToPublish)
         {
             // This is idempotent. if we get multiple authorize requests we ignore them.
@@ -33,7 +33,7 @@ public class Author : AggregateRoot
     }
 
     [UsedImplicitly]
-    private void Apply(AuthorRegisteredEvent @event)
+    public void Apply(AuthorRegisteredEvent @event)
     {
         Id = @event.Id;
         Name = @event.Name;
@@ -41,7 +41,7 @@ public class Author : AggregateRoot
     }
 
     [UsedImplicitly]
-    private void Apply(AuthorAuthorizedToPublishEvent _)
+    public void Apply(AuthorAuthorizedToPublishEvent _)
     {
         IsAuthorizedToPublish = true;
     }

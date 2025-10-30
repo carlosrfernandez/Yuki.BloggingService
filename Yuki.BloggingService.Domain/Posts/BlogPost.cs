@@ -11,27 +11,26 @@ public class BlogPost : AggregateRoot
     public string Content { get; private set; } = string.Empty;
     public DateTimeOffset CreatedAt { get; private set; }
     public bool IsPublished { get; private set; } = false;
-    
+
     /// <summary>
     /// Create a new blog post
     /// </summary>
+    /// <param name="id"></param>
     /// <param name="authorId"></param>
     /// <param name="title"></param>
     /// <param name="description"></param>
     /// <param name="content"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
-    public void DraftBlogPost(Guid authorId, string title, string description, string content)
+    public void DraftBlogPost(Guid id, Guid authorId, string title, string description, string content)
     {
-        if (Id == Guid.Empty) throw new InvalidOperationException("Only new blog posts can be created.");
-        Id = Guid.NewGuid();
-        AuthorId = authorId;
-        Title = title;
-        Description = description;
-        Content = content;
+        if (Id != Guid.Empty) throw new InvalidOperationException("Only new blog posts can be created.");
+        if (authorId == Guid.Empty) throw new InvalidOperationException("Author cannot be empty.");
+        if (string.IsNullOrWhiteSpace(title)) throw new InvalidOperationException("Title cannot be empty.");
+        // Description is optional
+        if (string.IsNullOrWhiteSpace(content)) throw new InvalidOperationException("Content cannot be empty.");
 
-        RaiseEvent(new BlogPostDraftCreatedEvent(Id, AuthorId, Title, Description, Content,
-            createdAt: DateTimeOffset.UtcNow));
+        RaiseEvent(new BlogPostDraftCreatedEvent(id, authorId, title, description, content, DateTimeOffset.UtcNow));
     }
     
     public void Publish(Author author)

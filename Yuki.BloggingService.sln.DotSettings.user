@@ -1,12 +1,11 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7ac43065_002D4658_002D4737_002D9a99_002Df544fa261349/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Concurrent_Saves_Do_Not_Lose_Events" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::FBFF0928-80C7-46A9-A6A9-D662FD532CE6::net9.0::Yuki.BloggingService.Infrastructure.Tests.InMemoryAggregateRepositoryTests.Concurrent_Saves_Do_Not_Lose_Events&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/dotCover/Editor/HighlightingSourceSnapshotLocation/@EntryValue">/Users/carlos/Library/Caches/JetBrains/Rider2025.2/resharper-host/temp/Rider/vAny/CoverageData/_Yuki.BloggingService.94969435/Snapshot/snapshot.utdcvr</s:String>
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6b77d9cd_002D8544_002D440d_002Dafa4_002Db1ae2cb560f5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;tests&amp;gt;\&amp;lt;Yuki.BloggingService.Domain.Tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/carlos/src/Yuki.BloggingService/Yuki.BloggingService.Domain.Tests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;Yuki.BloggingService.Domain.Tests&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bbbcef46_002D5ba2_002D4150_002Dadf8_002D048aace29646/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="SaveAsync_Persists_Uncommitted_Events_And_Clears_Them" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::FBFF0928-80C7-46A9-A6A9-D662FD532CE6::net9.0::Yuki.BloggingService.Infrastructure.Tests.InMemoryAggregateRepositoryTests.SaveAsync_Persists_Uncommitted_Events_And_Clears_Them&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::FBFF0928-80C7-46A9-A6A9-D662FD532CE6::net9.0::Yuki.BloggingService.Infrastructure.Tests.InMemoryAggregateRepositoryTests.Concurrent_Saves_Do_Not_Lose_Events&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7ac43065_002D4658_002D4737_002D9a99_002Df544fa261349/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Concurrent_Saves_Do_Not_Lose_Events" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/carlos/src/Yuki.BloggingService" Presentation="&amp;lt;tests&amp;gt;" /&gt;
+&lt;/SessionState&gt;</s:String>
+	</wpf:ResourceDictionary>

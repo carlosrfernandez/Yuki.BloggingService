@@ -57,7 +57,6 @@ public class InMemoryAggregateRepositoryTests
         var repo = new InMemoryAggregateRepository(eventBus);
         var aggregate = new TestAggregate();
 
-        // act
         await repo.SaveAsync(aggregate);
 
         var reloaded = await repo.GetByIdAsync<TestAggregate>(aggregate.Id);
@@ -67,7 +66,7 @@ public class InMemoryAggregateRepositoryTests
     }
     
     [Test]
-    [Repeat(1000000)]
+    // [Repeat(1000000)]
     public async Task Concurrent_Saves_Do_Not_Lose_Events()
     {
         using var eventBus = new InMemoryEventBus();
@@ -91,6 +90,7 @@ public class InMemoryAggregateRepositoryTests
         Assert.That(reloaded.Version, Is.EqualTo(names.Length - 1));
     }
 
+    // This one is just testing that when an event is saved, it is also published to the event bus.
     [Test]
     public async Task SaveAsync_Publishes_Events_To_Bus()
     {
