@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Yuki.BloggingService.Domain.Posts;
 using Yuki.BloggingService.Infrastructure.Messaging;
-using Yuki.Queries.Projections;
+using Yuki.Queries.Common;
+using Yuki.Queries.Projections.Summary;
 
 namespace Yuki.BloggingService.Queries.Tests;
 
@@ -14,7 +13,8 @@ public class BlogPostSummaryProjectionTests
     public async Task Start_WhenDraftEventArrives_ShouldStoreSummary()
     {
         using var eventBus = new InMemoryEventBus();
-        var projection = new BlogPostSummaryProjection(eventBus);
+        var repository = new InMemoryReadRepository<BlogPostDraftSummary>();
+        var projection = new BlogPostSummaryProjection(eventBus, repository);
         projection.Start();
 
         var blogPostId = Guid.NewGuid();
@@ -30,10 +30,8 @@ public class BlogPostSummaryProjectionTests
 
         await eventBus.PublishAsync([draftEvent]);
 
-        Assert.That(
-            projection.TryGetPost(blogPostId, out var summary),
-            Is.True,
-            "Projection should cache drafted blog posts.");
+        var result = await repository.TryGetAsync(blogPostId, out var summary);
+        Assert.That(result, Is.True);
 
         Assert.Multiple(() =>
         {
@@ -53,7 +51,8 @@ public class BlogPostSummaryProjectionTests
     public async Task PublishEvent_ShouldUpdatePublishedAt()
     {
         using var eventBus = new InMemoryEventBus();
-        var projection = new BlogPostSummaryProjection(eventBus);
+        var repository = new InMemoryReadRepository<BlogPostDraftSummary>();
+        var projection = new BlogPostSummaryProjection(eventBus, repository);
         projection.Start();
 
         var blogPostId = Guid.NewGuid();
@@ -79,12 +78,9 @@ public class BlogPostSummaryProjectionTests
             publishedAt);
 
         await eventBus.PublishAsync([publishEvent]);
-
-        Assert.That(
-            projection.TryGetPost(blogPostId, out var summary),
-            Is.True,
-            "Projection should retain summary after publish.");
-
+        var result = await repository.TryGetAsync(blogPostId, out var summary);
+        Assert.That(result, Is.True);
+        
         Assert.That(summary.PublishedAt, Is.EqualTo(publishedAt));
 
         projection.Dispose();

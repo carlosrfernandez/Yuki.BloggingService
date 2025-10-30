@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Reflection;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Yuki.BloggingService.Domain.Posts;
 using Yuki.BloggingService.Infrastructure.Messaging;
-using Yuki.Queries.Projections;
+using Yuki.Queries.Common;
+using Yuki.Queries.Projections.Full;
 
 namespace Yuki.BloggingService.Queries.Tests;
 
@@ -16,7 +13,9 @@ public class BlogPostWithAuthorInfoRecordProjectionTests
     public async Task DraftEvent_ShouldCreateRecord()
     {
         using var eventBus = new InMemoryEventBus();
-        var projection = new BlogPostWithAuthorInfoRecordProjection(eventBus);
+        var repository = new InMemoryReadRepository<BlogPostWithAuthorInformationRecord>();
+        var projection = new BlogPostWithAuthorInfoRecordProjection(eventBus, repository);
+        projection.Start();
 
         var blogPostId = Guid.NewGuid();
         var authorId = Guid.NewGuid();
@@ -29,11 +28,10 @@ public class BlogPostWithAuthorInfoRecordProjectionTests
             "Content",
             createdAt);
 
-        await eventBus.PublishAsync(new[] { draftEvent });
-
-        var records = GetRecords(projection);
-        Assert.That(records.TryGetValue(blogPostId, out var record), Is.True);
-
+        await eventBus.PublishAsync([draftEvent]);
+        var result = await repository.TryGetAsync(blogPostId, out var record);
+        Assert.That(result, Is.True);
+        
         Assert.Multiple(() =>
         {
             Assert.That(record!.Id, Is.EqualTo(blogPostId));
@@ -54,7 +52,9 @@ public class BlogPostWithAuthorInfoRecordProjectionTests
     public async Task PublishEvent_ShouldEnrichRecordWithAuthorDetails()
     {
         using var eventBus = new InMemoryEventBus();
-        var projection = new BlogPostWithAuthorInfoRecordProjection(eventBus);
+        var repository = new InMemoryReadRepository<BlogPostWithAuthorInformationRecord>();
+        var projection = new BlogPostWithAuthorInfoRecordProjection(eventBus, repository);
+        projection.Start();
 
         var blogPostId = Guid.NewGuid();
         var authorId = Guid.NewGuid();
@@ -69,7 +69,7 @@ public class BlogPostWithAuthorInfoRecordProjectionTests
             "Content",
             createdAt);
 
-        await eventBus.PublishAsync(new[] { draftEvent });
+        await eventBus.PublishAsync([draftEvent]);
 
         var publishEvent = new BlogPostPublishedEvent(
             blogPostId,
@@ -78,11 +78,10 @@ public class BlogPostWithAuthorInfoRecordProjectionTests
             "Surname",
             publishedAt);
 
-        await eventBus.PublishAsync(new[] { publishEvent });
+        await eventBus.PublishAsync([publishEvent]);
 
-        var records = GetRecords(projection);
-        Assert.That(records.TryGetValue(blogPostId, out var record), Is.True);
-
+        var result = await repository.TryGetAsync(blogPostId, out var record);
+        Assert.That(result, Is.True);
         Assert.Multiple(() =>
         {
             Assert.That(record!.PublishedAt, Is.EqualTo(publishedAt));
@@ -92,14 +91,5 @@ public class BlogPostWithAuthorInfoRecordProjectionTests
         });
 
         projection.Dispose();
-    }
-
-    private static ConcurrentDictionary<Guid, BlogPostWithAuthorInformationRecord> GetRecords(
-        BlogPostWithAuthorInfoRecordProjection projection)
-    {
-        var field = typeof(BlogPostWithAuthorInfoRecordProjection)
-            .GetField("_records", BindingFlags.NonPublic | BindingFlags.Instance);
-
-        return (ConcurrentDictionary<Guid, BlogPostWithAuthorInformationRecord>)field!.GetValue(projection)!;
     }
 }

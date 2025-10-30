@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Hosting;
-using Yuki.Queries.Projections;
+using Yuki.Queries.Projections.Full;
+using Yuki.Queries.Projections.Summary;
 
 namespace Yuki.BloggingService.Api.QueryServices;
 

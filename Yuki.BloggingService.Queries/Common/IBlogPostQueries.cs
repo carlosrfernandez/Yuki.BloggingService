@@ -1,11 +1,13 @@
-using Yuki.Queries.Projections;
+using Yuki.Queries.Projections.Full;
+using Yuki.Queries.Projections.Summary;
 
 namespace Yuki.Queries.Common;
 
 public interface IBlogPostQueries
 {
-    public Task<BlogPostDraftSummary?> GetBlogPostDraftByIdAsync(Guid blogPostId,
+    Task<BlogPostDraftSummary?> GetBlogPostInformation(Guid blogPostId,
         CancellationToken cancellationToken = default);
-    public Task<BlogPostWithAuthorInformationRecord?> GetPublishedBlogPostByIdAsync(Guid blogPostId,
+
+    Task<BlogPostWithAuthorInformationRecord?> GetBlogPostInformationWithAuthorInfo(Guid blogPostId,
         CancellationToken cancellationToken = default);
 }

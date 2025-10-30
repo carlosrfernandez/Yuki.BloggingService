@@ -1,4 +1,4 @@
-namespace Yuki.Queries.Projections;
+namespace Yuki.Queries.Projections.Full;
 
 public record BlogPostWithAuthorInformationRecord
 {

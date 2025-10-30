@@ -1,4 +1,4 @@
-﻿namespace Yuki.Queries.Projections;
+﻿namespace Yuki.Queries.Projections.Summary;
 
 public sealed record BlogPostDraftSummary(
     Guid Id,

@@ -1,16 +1,18 @@
-﻿using System.Collections.Concurrent;
-using System.Reactive.Disposables;
+﻿using System.Reactive.Disposables;
 using Yuki.BloggingService.Domain.Posts;
 using Yuki.BloggingService.Infrastructure.Messaging;
 using Yuki.Queries.Common;
 
-namespace Yuki.Queries.Projections;
+namespace Yuki.Queries.Projections.Summary;
 
 // This has a simple storage. And should be treated as a persisted database or similar.
-public sealed class BlogPostSummaryProjection(IEventBus eventBus) : ProjectionsBase
+public sealed class BlogPostSummaryProjection(
+    IEventBus eventBus,
+    IReadRepository<BlogPostDraftSummary> repository) : ProjectionsBase
 {
     private readonly IEventBus _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-    private readonly ConcurrentDictionary<Guid, BlogPostDraftSummary> _drafts = new();
+    private readonly IReadRepository<BlogPostDraftSummary> _repository =
+        repository ?? throw new ArgumentNullException(nameof(repository));
     private CompositeDisposable? _subscriptions;
 
     public override void Start()
@@ -20,10 +22,10 @@ public sealed class BlogPostSummaryProjection(IEventBus eventBus) : ProjectionsB
         _subscriptions.Add(_eventBus.Subscribe<BlogPostPublishedEvent>(Handle));
     }
 
-    public bool TryGetPost(Guid blogPostId, out BlogPostDraftSummary summary) =>
-        _drafts.TryGetValue(blogPostId, out summary);
+    public Task<bool> TryGetDraft(Guid blogPostId, out BlogPostDraftSummary summary) =>
+        _repository.TryGetAsync(blogPostId, out summary);
 
-    private void Handle(BlogPostDraftCreatedEvent @event)
+    private async Task Handle(BlogPostDraftCreatedEvent @event)
     {
         var summary = new BlogPostDraftSummary(
             @event.Id,
@@ -34,17 +36,14 @@ public sealed class BlogPostSummaryProjection(IEventBus eventBus) : ProjectionsB
             @event.CreatedAt, 
             null);
 
-        _drafts[@event.Id] = summary;
+        await _repository.Upsert(@event.Id, summary);
     }
 
-    private void Handle(BlogPostPublishedEvent @event)
+    private async Task Handle(BlogPostPublishedEvent @event)
     {
-        var blogPost = _drafts.GetValueOrDefault(@event.Id);
-        if (blogPost == null) return;
-
-        var updatedRecord = blogPost with { PublishedAt = @event.PublishedAt };
-
-        _drafts.TryUpdate(blogPost.Id, updatedRecord, blogPost);
+        await _repository.TryUpdate(
+            @event.Id,
+            existing => existing with { PublishedAt = @event.PublishedAt });
     }
 
     public  override void Dispose()

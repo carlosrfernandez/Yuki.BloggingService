@@ -28,13 +28,18 @@ public sealed class InMemoryEventBus : IEventBus, IDisposable
         return Task.CompletedTask;
     }
 
-    public IDisposable Subscribe<TEvent>(Action<TEvent> handler) where TEvent : class, IEvent
+    public IDisposable Subscribe<TEvent>(Func<TEvent, Task> handler) where TEvent : class, IEvent
     {
         if (_disposed) throw new ObjectDisposedException(nameof(InMemoryEventBus));
         ArgumentNullException.ThrowIfNull(handler);
-        return _subject.OfType<TEvent>().Subscribe(handler);
+        return _subject.OfType<TEvent>().Subscribe(@event =>
+        {
+            var task = handler(@event);
+            // TODO: Massive simplification here. Mixing observables with async/await is not ideal..
+            task.ConfigureAwait(false).GetAwaiter().GetResult();
+        });
     }
-
+    
     public void Dispose()
     {
         if (_disposed) return;
