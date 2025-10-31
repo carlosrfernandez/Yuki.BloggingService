@@ -27,10 +27,6 @@ builder.Services.AddReadModelQueries();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<BlogPostSummaryProjection>();
-builder.Services.AddSingleton<BlogPostWithAuthorInformationProjection>();
-
-builder.Services.AddSingleton<IBlogPostQueries, BlogPostQueries>();
 builder.Services.AddHostedService<ProjectionsHostedService>();
 
 var app = builder.Build();
