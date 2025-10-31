@@ -39,7 +39,10 @@ public class BlogPostQueryController(IBlogPostQueries blogPostQueries) : Control
         return Ok(BlogPostResponse.From(summary, authorDetails));
     }
 
-    private sealed record BlogPostResponse(
+    /// <summary>
+    /// For xml serialization purposes we need this to have a parameterless constructor and it has to be public
+    /// </summary>
+    public sealed record BlogPostResponse(
         Guid BlogPostId,
         Guid AuthorId,
         string Title,
@@ -51,6 +54,12 @@ public class BlogPostQueryController(IBlogPostQueries blogPostQueries) : Control
         string? AuthorName,
         string? AuthorSurname)
     {
+        public BlogPostResponse() : this(Guid.Empty, Guid.Empty, string.Empty, string.Empty, string.Empty,
+            DateTimeOffset.MinValue, false,
+            DateTimeOffset.MinValue, string.Empty, string.Empty)
+        {
+            
+        }
         public static BlogPostResponse From(
             BlogPostDraftSummaryRecord summary,
             BlogPostWithAuthorInformationRecord? authorDetails)

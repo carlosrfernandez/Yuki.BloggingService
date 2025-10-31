@@ -35,11 +35,12 @@ builder.Services.AddHostedService<ProjectionsHostedService>();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
+// This is a test exercise, no need to check env.
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+// }
 
 app.UseHttpsRedirection();
 

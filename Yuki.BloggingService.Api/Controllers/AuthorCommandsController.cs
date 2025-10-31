@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Yuki.BloggingService.Application.Commands.Authors;
 using Yuki.BloggingService.Infrastructure;
 
@@ -9,13 +8,13 @@ namespace Yuki.BloggingService.Api.Controllers;
 [Route("api/authors")]
 [Produces("application/json", "application/xml")]
 public class AuthorCommandsController(
-    ICommandHandler<RegisterNewAuthorCommand> registerHandler,
-    ICommandHandler<AuthorizeAuthorToPublishCommand> authorizeHandler) : ControllerBase
+    ICommandHandler<RegisterNewAuthorCommand, Guid> registerHandler,
+    ICommandHandler<AuthorizeAuthorToPublishCommand, bool> authorizeHandler) : ControllerBase
 {
-    private readonly ICommandHandler<RegisterNewAuthorCommand> _registerHandler =
+    private readonly ICommandHandler<RegisterNewAuthorCommand, Guid> _registerHandler =
         registerHandler ?? throw new ArgumentNullException(nameof(registerHandler));
 
-    private readonly ICommandHandler<AuthorizeAuthorToPublishCommand> _authorizeHandler =
+    private readonly ICommandHandler<AuthorizeAuthorToPublishCommand, bool> _authorizeHandler =
         authorizeHandler ?? throw new ArgumentNullException(nameof(authorizeHandler));
 
     [HttpPost]
@@ -25,11 +24,6 @@ public class AuthorCommandsController(
         [FromBody] RegisterAuthorRequest request,
         CancellationToken cancellationToken)
     {
-        if (!ModelState.IsValid)
-        {
-            return ValidationProblem(ModelState);
-        }
-
         var command = new RegisterNewAuthorCommand
         {
             Name = request.Name,
@@ -37,8 +31,8 @@ public class AuthorCommandsController(
             Email = request.Email
         };
 
-        await _registerHandler.HandleAsync(command, cancellationToken).ConfigureAwait(false);
-        return Accepted(new { message = "Author registration accepted." });
+        var result = await _registerHandler.HandleAsync(command, cancellationToken).ConfigureAwait(false);
+        return Accepted(new { AuthorId = result, message = "Author registration accepted." });
     }
 
     [HttpPost("{authorId:guid}/authorize")]
@@ -46,12 +40,37 @@ public class AuthorCommandsController(
     public async Task<IActionResult> AuthorizeAuthor(Guid authorId, CancellationToken cancellationToken)
     {
         var command = new AuthorizeAuthorToPublishCommand { AuthorId = authorId };
-        await _authorizeHandler.HandleAsync(command, cancellationToken).ConfigureAwait(false);
+        var result = await _authorizeHandler.HandleAsync(command, cancellationToken).ConfigureAwait(false);
+        if (!result)
+        {
+            // again, this is just for the purposes of the exercise
+            return UnprocessableEntity(new { message = "Author authorization failed." });
+        }
         return NoContent();
     }
 
-    public sealed record RegisterAuthorRequest(
-        [property: Required] string Name,
-        [property: Required] string Surname,
-        [property: Required, EmailAddress] string Email);
+    public sealed record RegisterAuthorRequest
+    {
+        public RegisterAuthorRequest(string Name,
+            string Surname,
+            string Email)
+        {
+            this.Name = Name;
+            this.Surname = Surname;
+            this.Email = Email;
+        }
+
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Email { get; set; }
+
+        public void Deconstruct(out string Name,
+            out string Surname,
+            out string Email)
+        {
+            Name = this.Name;
+            Surname = this.Surname;
+            Email = this.Email;
+        }
+    }
 }

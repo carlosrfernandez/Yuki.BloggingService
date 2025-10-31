@@ -1,6 +1,6 @@
 ﻿namespace Yuki.BloggingService.Infrastructure;
 
-public interface ICommandHandler<in TCommand>
+public interface ICommandHandler<in TCommand, TResult>
 {
-    Task HandleAsync(TCommand command, CancellationToken cancellationToken = default);
+    Task<TResult> HandleAsync(TCommand command, CancellationToken cancellationToken = default);
 }

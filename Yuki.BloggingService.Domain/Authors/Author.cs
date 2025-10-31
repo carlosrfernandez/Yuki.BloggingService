@@ -17,7 +17,7 @@ public class Author : AggregateRoot
         if (string.IsNullOrEmpty(email)) throw new InvalidOperationException("Author email cannot be empty.");
         
         RaiseEvent(new AuthorRegisteredEvent(
-            Id,
+            Guid.NewGuid(),
             name,
             surname,
             email,

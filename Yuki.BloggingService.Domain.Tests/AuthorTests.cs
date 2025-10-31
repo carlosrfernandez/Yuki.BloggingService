@@ -26,6 +26,7 @@ public class AuthorTests
         Assert.That(registered.Surname, Is.EqualTo("Ruiz"));
         Assert.That(registered.Email, Is.EqualTo("carlos@example.com"));
         Assert.That(registered.RegisteredAt, Is.Not.EqualTo(default(DateTimeOffset)));
+        Assert.That(registered.Id, Is.Not.EqualTo(Guid.Empty));
     }
 
     [Test]

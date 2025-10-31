@@ -6,13 +6,14 @@ using Yuki.BloggingService.Infrastructure;
 namespace Yuki.BloggingService.Application.Commands.BlogPosts;
 
 public class PublishBlogPostCommandHandler(IAggregateRepository blogPostRepository)
-    : ICommandHandler<PublishBlogPostCommand>
+    : ICommandHandler<PublishBlogPostCommand, bool>
 {
-    public async Task HandleAsync(PublishBlogPostCommand command, CancellationToken cancellationToken = default)
+    public async Task<bool> HandleAsync(PublishBlogPostCommand command, CancellationToken cancellationToken = default)
     {
         var author = await blogPostRepository.GetByIdAsync<Author>(command.AuthorId, cancellationToken);
         var blogPost = await blogPostRepository.GetByIdAsync<BlogPost>(command.BlogPostId, cancellationToken);
         blogPost.Publish(author);
         await blogPostRepository.SaveAsync(blogPost, cancellationToken);
+        return true;
     }
 }

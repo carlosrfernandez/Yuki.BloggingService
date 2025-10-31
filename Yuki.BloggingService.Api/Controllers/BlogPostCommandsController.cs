@@ -9,13 +9,13 @@ namespace Yuki.BloggingService.Api.Controllers;
 [Route("api/blogposts")]
 [Produces("application/json")]
 public class BlogPostCommandsController(
-    ICommandHandler<DraftBlogPostCommand> draftHandler,
-    ICommandHandler<PublishBlogPostCommand> publishHandler) : ControllerBase
+    ICommandHandler<DraftBlogPostCommand, Guid> draftHandler,
+    ICommandHandler<PublishBlogPostCommand, bool> publishHandler) : ControllerBase
 {
-    private readonly ICommandHandler<DraftBlogPostCommand> _draftHandler =
+    private readonly ICommandHandler<DraftBlogPostCommand, Guid> _draftHandler =
         draftHandler ?? throw new ArgumentNullException(nameof(draftHandler));
 
-    private readonly ICommandHandler<PublishBlogPostCommand> _publishHandler =
+    private readonly ICommandHandler<PublishBlogPostCommand, bool> _publishHandler =
         publishHandler ?? throw new ArgumentNullException(nameof(publishHandler));
 
     [HttpPost]
@@ -36,8 +36,8 @@ public class BlogPostCommandsController(
             request.Description ?? string.Empty,
             request.Content);
 
-        await _draftHandler.HandleAsync(command, cancellationToken).ConfigureAwait(false);
-        return Accepted(new { message = "Blog post draft accepted." });
+        var blogpostId = await _draftHandler.HandleAsync(command, cancellationToken).ConfigureAwait(false);
+        return Accepted(new { BlogpostId = blogpostId,message = "Blog post draft accepted." });
     }
 
     [HttpPost("{blogPostId:guid}/publish")]
@@ -48,21 +48,21 @@ public class BlogPostCommandsController(
         [FromBody] PublishBlogPostRequest request,
         CancellationToken cancellationToken)
     {
-        if (!ModelState.IsValid)
-        {
-            return ValidationProblem(ModelState);
-        }
-
         var command = new PublishBlogPostCommand(blogPostId, request.AuthorId);
-        await _publishHandler.HandleAsync(command, cancellationToken).ConfigureAwait(false);
-        return NoContent();
+        var result = await _publishHandler.HandleAsync(command, cancellationToken).ConfigureAwait(false);
+        if (!result)
+        {
+            return UnprocessableEntity(new { message = "Blog post publishing failed." });
+        }
+        
+        return Ok(new { message = "Blog post published successfully." });
     }
 
     public sealed record DraftBlogPostRequest(
-        [property: Required] Guid AuthorId,
-        [property: Required] string Title,
+        Guid AuthorId,
+        string Title,
         string? Description,
-        [property: Required] string Content);
+        string Content);
 
-    public sealed record PublishBlogPostRequest([property: Required] Guid AuthorId);
+    public sealed record PublishBlogPostRequest(Guid AuthorId);
 }

@@ -4,11 +4,11 @@ using Yuki.BloggingService.Infrastructure;
 
 namespace Yuki.BloggingService.Application.Commands.BlogPosts;
 
-public sealed class DraftBlogPostCommandHandler(IAggregateRepository repository) : ICommandHandler<DraftBlogPostCommand>
+public sealed class DraftBlogPostCommandHandler(IAggregateRepository repository) : ICommandHandler<DraftBlogPostCommand, Guid>
 {
     private readonly IAggregateRepository _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
-    public async Task HandleAsync(DraftBlogPostCommand command, CancellationToken cancellationToken = default)
+    public async Task<Guid> HandleAsync(DraftBlogPostCommand command, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(command);
 
@@ -17,5 +17,6 @@ public sealed class DraftBlogPostCommandHandler(IAggregateRepository repository)
         blogPost.DraftBlogPost(id, command.AuthorId, command.Title, command.Description, command.Content);
         
         await _repository.SaveAsync(blogPost, cancellationToken).ConfigureAwait(false);
+        return blogPost.Id;
     }
 }
