@@ -3,5 +3,5 @@
     image: yuki.bloggingservice
     build:
       context: .
-      dockerfile: Yuki.BloggingService/Dockerfile
+      dockerfile: Yuki.BloggingService.Api/Dockerfile
 
