@@ -15,7 +15,7 @@ public class BlogPostQueries(
     IReadRepository<BlogPostWithAuthorInformationRecord> blogPostWithAuthorRepository)
     : IBlogPostQueries
 {
-    public async Task<BlogPostDraftSummaryRecord?> GetBlogPostInformation(Guid blogPostId,
+    public async Task<BlogPostDraftSummaryRecord?> GetBlogPostSummaryInformation(Guid blogPostId,
         CancellationToken cancellationToken = default)
     {
         var query = await blogPostRepository.TryGetAsync(blogPostId, out var blogPostSummary, cancellationToken);

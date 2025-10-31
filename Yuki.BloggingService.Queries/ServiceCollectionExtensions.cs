@@ -11,6 +11,9 @@ public static class ServiceCollectionExtensions
     {
         services.AddSingleton<IReadRepository<BlogPostDraftSummaryRecord>, InMemoryReadRepository<BlogPostDraftSummaryRecord>>();
         services.AddSingleton<IReadRepository<BlogPostWithAuthorInformationRecord>, InMemoryReadRepository<BlogPostWithAuthorInformationRecord>>();
+
+        services.AddSingleton<BlogPostSummaryProjection>();
+        services.AddSingleton<BlogPostWithAuthorInformationProjection>();
         return services;
     }
 }

@@ -5,7 +5,7 @@ using Yuki.Queries.Common;
 
 namespace Yuki.Queries.Projections.Full;
 
-public sealed class BlogPostWithAuthorInfoRecordProjection(
+public sealed class BlogPostWithAuthorInformationProjection(
     IEventBus eventBus,
     IReadRepository<BlogPostWithAuthorInformationRecord> repository) : ProjectionsBase
 {

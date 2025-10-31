@@ -1,13 +1,17 @@
-using Microsoft.Extensions.Hosting;
 using Yuki.Queries.Projections.Full;
 using Yuki.Queries.Projections.Summary;
 
 namespace Yuki.BloggingService.Api.QueryServices;
 
-public class ProjectionsHostedService(BlogPostSummaryProjection summaryProjection, BlogPostWithAuthorInfoRecordProjection fullProjection) : BackgroundService
+public class ProjectionsHostedService(
+    BlogPostSummaryProjection summaryProjection,
+    BlogPostWithAuthorInformationProjection fullProjection) : BackgroundService
 {
-    private readonly BlogPostSummaryProjection _summaryProjection = summaryProjection  ?? throw new ArgumentNullException(nameof(summaryProjection));
-    private readonly BlogPostWithAuthorInfoRecordProjection _fullProjection = fullProjection ?? throw new ArgumentNullException(nameof(fullProjection));
+    private readonly BlogPostSummaryProjection _summaryProjection =
+        summaryProjection ?? throw new ArgumentNullException(nameof(summaryProjection));
+
+    private readonly BlogPostWithAuthorInformationProjection _fullProjection =
+        fullProjection ?? throw new ArgumentNullException(nameof(fullProjection));
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {

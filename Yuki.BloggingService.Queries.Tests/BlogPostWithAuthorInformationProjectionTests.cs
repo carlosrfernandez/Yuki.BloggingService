@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Yuki.BloggingService.Domain.Posts;
 using Yuki.BloggingService.Infrastructure.Messaging;
 using Yuki.Queries.Common;
@@ -9,14 +7,14 @@ using Yuki.Queries.Projections.Full;
 namespace Yuki.BloggingService.Queries.Tests;
 
 [TestFixture]
-public class BlogPostWithAuthorInfoRecordProjectionTests
+public class BlogPostWithAuthorInformationProjectionTests
 {
     [Test]
     public async Task DraftEvent_ShouldCreateRecord()
     {
         using var eventBus = new InMemoryEventBus();
         var repository = new InMemoryReadRepository<BlogPostWithAuthorInformationRecord>();
-        var projection = new BlogPostWithAuthorInfoRecordProjection(eventBus, repository);
+        var projection = new BlogPostWithAuthorInformationProjection(eventBus, repository);
         projection.Start();
 
         var blogPostId = Guid.NewGuid();
@@ -55,7 +53,7 @@ public class BlogPostWithAuthorInfoRecordProjectionTests
     {
         using var eventBus = new InMemoryEventBus();
         var repository = new InMemoryReadRepository<BlogPostWithAuthorInformationRecord>();
-        var projection = new BlogPostWithAuthorInfoRecordProjection(eventBus, repository);
+        var projection = new BlogPostWithAuthorInformationProjection(eventBus, repository);
         projection.Start();
 
         var blogPostId = Guid.NewGuid();

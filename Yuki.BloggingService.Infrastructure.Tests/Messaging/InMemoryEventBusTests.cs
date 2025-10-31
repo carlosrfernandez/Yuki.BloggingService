@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Yuki.BloggingService.Domain.Common;
 using Yuki.BloggingService.Infrastructure.Messaging;
 

@@ -29,7 +29,7 @@ public class BlogPostQueriesTests
 
         await repository.Upsert(blogPostId, draft);
 
-        var result = await queries.GetBlogPostInformation(blogPostId);
+        var result = await queries.GetBlogPostSummaryInformation(blogPostId);
 
         Assert.That(result, Is.EqualTo(draft));
     }
@@ -74,7 +74,7 @@ public class BlogPostQueriesTests
         var publishedRepository = new InMemoryReadRepository<BlogPostWithAuthorInformationRecord>();
         var queries = new BlogPostQueries(repository, publishedRepository);
 
-        var draft = await queries.GetBlogPostInformation(Guid.NewGuid());
+        var draft = await queries.GetBlogPostSummaryInformation(Guid.NewGuid());
         var published = await queries.GetBlogPostInformationWithAuthorInfo(Guid.NewGuid());
 
         Assert.That(draft, Is.Null);
