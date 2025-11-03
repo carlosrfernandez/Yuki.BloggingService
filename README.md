@@ -15,8 +15,8 @@ This is simple blogging service, the request is summaried as follows:
 
 1. Clone the repository:
    ```bash
-   git clone <repository_url>
-   cd <repository_directory>
+   git clone https://github.com/carlosrfernandez/Yuki.BloggingService.git
+   cd Yuki.BloggingService
    ```
 2. Install dependencies:
    ```bash
