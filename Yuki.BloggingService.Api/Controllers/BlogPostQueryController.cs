@@ -55,8 +55,7 @@ public class BlogPostQueryController(IBlogPostQueries blogPostQueries) : Control
         string? AuthorSurname)
     {
         public BlogPostResponse() : this(Guid.Empty, Guid.Empty, string.Empty, string.Empty, string.Empty,
-            DateTimeOffset.MinValue, false,
-            DateTimeOffset.MinValue, string.Empty, string.Empty)
+            DateTimeOffset.MinValue, false, null, null, null)
         {
             
         }

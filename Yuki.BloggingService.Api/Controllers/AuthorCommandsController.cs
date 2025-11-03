@@ -20,6 +20,7 @@ public class AuthorCommandsController(
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> RegisterAuthor(
         [FromBody] RegisterAuthorRequest request,
         CancellationToken cancellationToken)
@@ -63,14 +64,5 @@ public class AuthorCommandsController(
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
-
-        public void Deconstruct(out string Name,
-            out string Surname,
-            out string Email)
-        {
-            Name = this.Name;
-            Surname = this.Surname;
-            Email = this.Email;
-        }
     }
 }

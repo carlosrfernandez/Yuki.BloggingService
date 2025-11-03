@@ -5,6 +5,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6E297230-8F94-4BFC-A948-66F568F9082E}"
 	ProjectSection(SolutionItems) = preProject
 		compose.yaml = compose.yaml
+		README.md = README.md
+		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.BloggingService.Domain.Common", "Yuki.BloggingService.Domain.Common\Yuki.BloggingService.Domain.Common.csproj", "{B30A379D-E9C5-4BA1-A769-B29A00C6CBBC}"
@@ -28,6 +30,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.BloggingService.Application.Tests", "Yuki.BloggingService.Application.Tests\Yuki.BloggingService.Application.Tests.csproj", "{79042193-9859-4A01-9F69-C8A1E3C95D9D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.BloggingService.Queries.Tests", "Yuki.BloggingService.Queries.Tests\Yuki.BloggingService.Queries.Tests.csproj", "{E23DC4A3-A230-4E4A-A92A-1F64E26C3D9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuki.BloggingService.Api.IntegrationTests", "Yuki.BloggingService.Api.IntegrationTests\Yuki.BloggingService.Api.IntegrationTests.csproj", "{C07DDA48-6606-464A-8FE3-4654BE84C43C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +79,10 @@ Global
 		{E23DC4A3-A230-4E4A-A92A-1F64E26C3D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E23DC4A3-A230-4E4A-A92A-1F64E26C3D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E23DC4A3-A230-4E4A-A92A-1F64E26C3D9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C07DDA48-6606-464A-8FE3-4654BE84C43C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C07DDA48-6606-464A-8FE3-4654BE84C43C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C07DDA48-6606-464A-8FE3-4654BE84C43C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C07DDA48-6606-464A-8FE3-4654BE84C43C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B30A379D-E9C5-4BA1-A769-B29A00C6CBBC} = {B38EB8C4-D6E0-47A1-89A7-3CFC77BAD874}
@@ -87,5 +95,6 @@ Global
 		{FBFF0928-80C7-46A9-A6A9-D662FD532CE6} = {F0775BFD-0AFC-4A6B-B84E-9E50B357DB13}
 		{79042193-9859-4A01-9F69-C8A1E3C95D9D} = {F0775BFD-0AFC-4A6B-B84E-9E50B357DB13}
 		{E23DC4A3-A230-4E4A-A92A-1F64E26C3D9E} = {F0775BFD-0AFC-4A6B-B84E-9E50B357DB13}
+		{C07DDA48-6606-464A-8FE3-4654BE84C43C} = {F0775BFD-0AFC-4A6B-B84E-9E50B357DB13}
 	EndGlobalSection
 EndGlobal

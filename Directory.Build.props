@@ -3,7 +3,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>13</LangVersion>
     <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
 </Project>

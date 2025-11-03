@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Yuki.BloggingService.Application.Commands.BlogPosts;
 using Yuki.BloggingService.Infrastructure;
 
